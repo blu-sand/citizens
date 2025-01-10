@@ -1,0 +1,834 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SmartPortal - Empowering Digital Innovation</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+
+    <style>
+        /* Reset and Base Styles */
+        :root {
+            --primary-color: #3B82F6;
+            --secondary-color: #10B981;
+            --background-color: #F3F4F6;
+            --text-color: #1F2937;
+            --white: #FFFFFF;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--background-color);
+        }
+
+        /* Navbar Styles */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 5%;
+            background-color: var(--white);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--primary-color);
+        }
+
+        .logo img {
+            height: 70px; /* Increased logo size */
+            transition: transform 0.3s ease;
+        }
+
+        .logo img:hover {
+            transform: scale(1.1) rotate(4deg);
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            align-items: center;
+        }
+
+        .nav-links li {
+            margin-left: 1.5rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-color);
+            font-weight: 500;
+            transition: color 0.3s ease, transform 0.2s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary-color);
+            transform: scale(1.05);
+        }
+
+        .btn-login {
+            background-color: var(--primary-color);
+            color: var(--white);
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+
+        .btn-login:hover {
+            background-color: #2563EB;
+            transform: translateY(-3px);
+        }
+
+        .btn-notifications {
+            background: none;
+            border: none;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .btn-notifications:hover {
+            transform: rotate(15deg);
+        }
+        .faq {
+            padding: 4rem 5%;
+            background-color: var(--background-color);
+            text-align: center;
+        }
+
+        .faq h2 {
+            margin-bottom: 2rem;
+            color: var(--primary-color);
+        }
+
+        .faq-container {
+            max-width: 800px;
+            margin: 0 auto;
+            perspective: 1000px;
+        }
+
+        .faq-item {
+            background-color: var(--white);
+            border-radius: 10px;
+            margin-bottom: 1rem;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+        .faq-item.active .faq-answer {
+    max-height: 500px;
+    opacity: 1;
+    padding: 1.5rem;
+    transform: translateY(0);
+}
+        .faq-question {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem;
+            background-color: var(--white);
+            color: var(--primary-color);
+            font-weight: 600;
+            cursor: pointer;
+            position: relative;
+            transition: background-color 0.3s ease;
+        }
+
+        .faq-question:hover {
+            background-color: var(--background-color);
+        }
+
+        .faq-question::after {
+            content: '+';
+            font-size: 1.5rem;
+            transition: transform 0.3s ease;
+        }
+
+        .faq-question.active::after {
+            content: '−';
+            transform: rotate(180deg);
+        }
+
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            opacity: 0;
+            padding: 0 1.5rem;
+            background-color: var(--background-color);
+            color: var(--text-color);
+            transition: all 0.3s ease;
+            transform: translateY(-20px);
+        }
+
+        .faq-item.active .faq-answer {
+            max-height: 500px;
+            opacity: 1;
+            padding: 1.5rem;
+            transform: translateY(0);
+        }
+    
+
+        .btn-notifications img {
+            width: 24px;
+            height: 24px;
+        }
+
+
+        /* Hero Section */
+        .hero {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 4rem 5%;
+            background-color: linear-gradient(to bottom, rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.3));
+            overflow: hidden;
+        }
+        
+        .hero-content , .hidden-content{
+            width: 80%;
+            flex: 1;
+            max-width: 50%;
+            max-height: 50%;
+            transition: opacity 0.5s ease, transform 0.5s ease;
+        }
+        .hidden-content {
+            display: none;
+            z-index: 10;
+            margin-top: 20px;
+            background: rgba(255, 255, 255, 0.9); /* Slight overlay for visibility */
+            padding: 20px;
+            border-radius: 10px;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+          
+        .hidden-content.visible {
+            display: block; /* Shows when toggled */
+        }
+
+        @keyframes fadeIn {
+            from {
+              opacity: 0;
+            }
+            to {
+              opacity: 1;
+            }
+        }
+
+        .hero-content h1 {
+            font-size: 3rem;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+            line-height: 1.2;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        }
+
+        .hero-content p {
+            font-size: 1.2rem;
+            color: var(--text-color);
+            margin-bottom: 2rem;
+            position: relative;
+        }
+
+        .hero-image {
+            flex: 1;
+            text-align: right;
+            perspective: 1000px;
+        }
+
+        .hero-image img {
+            max-width: 90%;
+            max-height: 30%;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            transition: transform 0.5s ease, box-shadow 0.5s ease;
+            animation: float 3s ease-in-out infinite alternate;
+        }
+
+        .feature-card {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background-color: var(--white);
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            perspective: 1000px;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-15px) rotateY(10deg);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        .feature-image {
+            width: 200px;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 10px;
+            margin-bottom: 1rem;
+            transition: transform 0.5s ease;
+            box-shadow: 0 8px 15px rgba(0,0,0,0.2);
+        }
+
+        .feature-card:hover .feature-image {
+            transform: rotateY(15deg) scale(1.05);
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(0) rotateY(10deg);
+            }
+            90% {
+                transform: translateY(-10px) rotateY(-10deg);
+            }
+        }
+
+        .hero-image img:hover {
+            transform: rotateY(10deg) scale(1.05) translateY(-30px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .btn-primary, .btn-secondary {
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary {
+            background-color: var(--primary-color);
+            color: var(--white);
+        }
+
+        .btn-primary:hover {
+            background-color: #2563EB;
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .btn-secondary {
+            background-color: transparent;
+            color: var(--primary-color);
+            border: 2px solid var(--primary-color);
+        }
+
+        .btn-secondary:hover {
+            background-color: var(--primary-color);
+            color: var(--white);
+            transform: translateY(-5px);
+        }
+
+        /* Features Section */
+        .features {
+            padding: 4rem 5%;
+            text-align: center;
+            background-color: var(--background-color);
+        }
+
+        .features h2 {
+            margin-bottom: 2rem;
+            color: var(--primary-color);
+        }
+
+        .feature-cards {
+            display: flex;
+            justify-content: space-between;
+            gap: 2rem;
+        }
+
+        .feature-card {
+            background-color: var(--white);
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-15px) rotateY(10deg);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        .feature-card h3 {
+            color: rgba(59, 64, 78, 0.948);
+            margin-bottom: 1rem;
+        }
+
+        /* Testimonials */
+        .testimonials {
+            padding: 4rem 5%;
+            text-align: center;
+            background-color: var(--white);
+        }
+
+        .testimonials h2 {
+            margin-bottom: 2rem;
+            color: var(--primary-color);
+        }
+
+        .testimonial-carousel {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+        }
+
+        .testimonial {
+            max-width: 400px;
+            background-color: var(--background-color);
+            padding: 2rem;
+            border-radius: 10px;
+            transition: transform 0.3s ease;
+        }
+
+        .testimonial:hover {
+            transform: scale(1.05);
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 1rem;
+            background-color: var(--primary-color);
+            color: var(--white);
+            position: relative;
+        }
+
+        /* AI Bot Logo - Fixed Right Bottom */
+        .footer-logo {
+            position: fixed;
+            bottom: 1rem;
+            right: 1rem;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            overflow: hidden;
+            transition: all 0.5s ease;
+            z-index: 1000;
+            perspective: 1000px;
+            background-color: var(--white);
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .footer-logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .footer-logo:hover {
+            transform: rotateY(360deg) scale(1.2);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+        }
+
+        .footer-logo:hover img {
+            transform: rotateX(15deg);
+        }
+
+        /* Optional: Hide in-footer logo */
+        footer .footer-logo {
+            position: static;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="logo">
+            <img src="https://www.dropbox.com/scl/fi/x1p2ye61y9n2oxgxpvptj/WhatsApp-Image-2024-11-20-at-20.22.00.jpeg?rlkey=h316h9vdvbfea64y3lywxetcy&st=78qy4pck&raw=1" alt="Yojna Connect Logo">
+        </div>
+        <ul class="nav-links">
+            <li id = "navHome"><a href="index.html">Home</a></li>
+            <li ><a href="blogs.html">Blogs</a></li>
+            <li ><a href="forum.html">Forum</a></li>
+            <li ><a href="profile.html">Profile</a></li>
+            <li ><a href="login.html" class="btn-login">Sign In</a></li>
+        </ul>
+        <div class="d-flex align-items-center">
+            <div class="dropdown me-3">
+                <button class="btn btn-outline-secondary dropdown-toggle" type="button" id="languageDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                    Language
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="languageDropdown">
+                    <li><a class="dropdown-item" href="#" onclick="setLanguage('en')">English</a></li>
+                    <li><a class="dropdown-item" href="#" onclick="setLanguage('hi')">हिंदी</a></li>
+                </ul>
+            </div>
+            <button class="btn-notifications" onclick="window.location.href='notifications.html'">
+                <img src="https://cdn.jsdelivr.net/npm/heroicons@1.0.6/outline/bell.svg" alt="Notifications">
+            </button>
+        </div>
+        
+    </nav>
+
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Simplifying Access to Opportunities</h1>
+            <p>"Your  digital guide to government support. Navigating schemes made simpler than ever before."</p>
+            <div class="hero-buttons">
+                <a href="login.html"><button class="btn-primary">Get Started</button></a>
+                <button class="btn-secondary" id="learn-more-btn" onclick="toggleLearnMore()">Learn More</button>
+            </div>
+        </div>
+        <div class="hero-image">
+            <img src="https://www.dropbox.com/scl/fi/1d4efwd6qxv245wd29lmz/claire-kelly-r8CQUjVDetE-unsplash.jpg?rlkey=sxoxsrj0ts9wpppb09n8olgw1&st=2d6f62t1&raw=1" alt="Tech Innovation">
+        </div>
+        <!-- Hidden Text for Learn More -->
+        <div id="hidden-content" class="hidden-content">
+            <h2>Did You Know?</h2>
+            <p>Many government schemes fail to benefit their target groups due to lack of awareness and accessibility. Our platform bridges this gap by using AI to match users with eligible programs, provide personalized guidance, and streamline applications—ensuring these initiatives truly reach and impact the people they are designed to help.</p>
+            <button class="btn-secondary" onclick="toggleLearnMore()">Go Back</button>
+        </div>
+    </section>
+
+
+
+    <!-- Features Section -->
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <style>
+            /* Existing styles plus new 3D feature card styles */
+            .feature-card {
+                position: relative;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                background-color: var(--white);
+                padding: 2rem;
+                border-radius: 10px;
+                box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+                transition: transform 0.3s ease, box-shadow 0.3s ease;
+                perspective: 1000px;
+            }
+    
+            .feature-card:hover {
+                transform: translateY(-15px) rotateY(10deg);
+                box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            }
+    
+            .feature-image {
+                width: 200px;
+                height: 200px;
+                object-fit: cover;
+                border-radius: 10px;
+                margin-bottom: 1rem;
+                transition: transform 0.5s ease;
+                box-shadow: 0 8px 15px rgba(0,0,0,0.2);
+            }
+    
+            .feature-card:hover .feature-image {
+                transform: rotateY(15deg) scale(1.05);
+            }
+        </style>
+    </head>
+    <body>
+        <section class="features">
+            <h2>Our Innovative Features</h2>
+            <div class="feature-cards">
+                <div class="feature-card">
+                    <img src="https://www.dropbox.com/scl/fi/3js3x5lbdhmc0oi3za8r0/Screen-Shot-2024-11-22-at-2.25.12-PM.png?rlkey=6pt75iujnehyw7an86jqsb5gi&st=6j4j725t&raw=1" alt="AI-Powered Blogs" class="feature-image">
+                    <h3>AI-Powered Blogs</h3>
+                    <p>Discover cutting-edge insights and trends curated by advanced AI algorithms.</p>
+                </div>
+                <div class="feature-card">
+                    <img src="https://www.dropbox.com/scl/fi/8nduh8gzuiowgqnd66dzl/2afa619c-fb82-47ae-8539-0616bf5e20aa.webp?rlkey=0yp5vm7xtog5icvf8oe13sp8c&st=eaejqwt1&raw=1" alt="Collaborative Forum" class="feature-image">
+                    <h3>Collaborative Forum</h3>
+                    <p>Connect, discuss, and innovate with a global community of tech enthusiasts.</p>
+                </div>
+                <div class="feature-card">
+                    <img src="https://www.dropbox.com/scl/fi/zcxjbxb8z2z6etia8ae7h/fabian-irsara-67l-QujB14w-unsplash.jpg?rlkey=ltk6g6j481yw4jhp2drlqp5ea&st=rykx901r&raw=1" alt="Smart Profiling" class="feature-image">
+                    <h3>Smart Profiling</h3>
+                    <p>Personalized experience with intelligent data management and recommendations.</p>
+                </div>
+            </div>
+        </section>
+    </body>
+    </html>
+
+    <!-- Testimonials Section -->
+    <section class="testimonials">
+        <h2>What Innovators Say</h2>
+        <div class="testimonial-carousel">
+            <div class="testimonial">
+                <p>"As an innovator, I believe technology should act as an enabler, simplifying lives and bridging gaps. By leveraging AI and data-driven solutions, we aim to empower individuals to unlock their full potential, ensuring that no one misses out on what’s meant for them."</p>
+                <span></span>
+            </div>
+            <div class="testimonial">
+                <p>"The goal of this project is to reimagine how people access government schemes and services—making the process not just user-friendly but also inspiring confidence in technology. This platform is more than just a tool; it’s a step towards building a smarter, more inclusive society."</p>
+                <span></span>
+            </div>
+        </div>
+    </section>
+    <section class="faq">
+        <h2>Frequently Asked Questions</h2>
+        <div class="faq-container">
+            <div class="faq-item">
+                <div class="faq-question">What is YojnaConnect, and how does it work?</div>
+                <div class="faq-answer">
+                    YojnaConnect is an AI-powered platform that simplifies access to government schemes and services. It helps users discover schemes they are eligible for, provides personalized guidance, verifies necessary documents, and streamlines the application process. By creating a profile, you can receive customized recommendations tailored to your needs, making government benefits more accessible than ever.
+                </div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question">Is YojnaConnect free to use?</div>
+                <div class="faq-answer">
+                    Yes, YojnaConnect is completely free to use! Our mission is to make government schemes and services easily accessible to everyone. Simply sign up, fill in your details, and start exploring the opportunities available to you.
+                </div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question">How does YojnaConnect ensure the security of my data?</div>
+                <div class="faq-answer">
+                    We prioritize your privacy and data security. YojnaConnect uses robust encryption and secure servers to protect your information. We adhere to strict privacy policies and only use your data to match you with relevant schemes. Your personal information will never be shared without your consent.
+                </div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question">Can YojnaConnect help me track my application status?
+                </div>
+                <div class="faq-answer">
+                    Absolutely! YojnaConnect offers an application tracking feature that allows you to monitor the status of your submitted applications in real time. You’ll also receive notifications and updates to ensure you don’t miss any critical deadlines or communications.
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2024 SmartPortal. Empowering Digital Innovation. All rights reserved.</p>
+        <div class="footer-logo">
+            <img src="bot.png" alt="AI Bot">
+        </div>
+    </footer>
+
+    <!-- Fixed AI Bot Logo -->
+    <div class="footer-logo">
+        <img src="https://www.dropbox.com/scl/fi/1g6gi2ez2j39ipj2d3avm/WhatsApp-Image-2024-11-20-at-20.22.16.jpeg?rlkey=zn6h0ozpg82sgqlgqlwj13y3q&st=tyw72vr9&raw=1" alt="AI Bot">
+    </div>
+
+    
+</body>
+</html>
+<script>
+    const translations = {
+        en: {
+            // Navbar translations
+            navHome: "Home",
+            navBlogs: "Blogs",
+            navForum: "Forum", 
+            navProfile: "Profile",
+            navSignIn: "Sign In",
+            navLanguage: "Language",
+
+            // Hero Section
+            heroTitle: "Simplifying Access to Opportunities",
+            heroDescription: "Your digital guide to government support. Navigating schemes made simpler than ever before.",
+            getStarted: "Get Started",
+            learnMore: "Learn More",
+            learnMoreTitle: "Did You Know?",
+            learnMoreContent: "Many government schemes fail to benefit their target groups due to lack of awareness and accessibility. Our platform bridges this gap by using AI to match users with eligible programs, provide personalized guidance, and streamline applications—ensuring these initiatives truly reach and impact the people they are designed to help.",
+            learnMoreGoBack: "Go Back",
+
+            // Features Section
+            featuresTitle: "Our Innovative Features",
+            featureAIBlogs: "AI-Powered Blogs",
+            featureAIBlogsDesc: "Discover cutting-edge insights and trends curated by advanced AI algorithms.",
+            featureForum: "Collaborative Forum",
+            featureForumDesc: "Connect, discuss, and innovate with a global community of tech enthusiasts.",
+            featureProfile: "Smart Profiling",
+            featureProfileDesc: "Personalized experience with intelligent data management and recommendations.",
+
+            // Testimonials Section
+            testimonialsTitle: "What Innovators Say",
+            testimonial1: "\"As an innovator, I believe technology should act as an enabler, simplifying lives and bridging gaps. By leveraging AI and data-driven solutions, we aim to empower individuals to unlock their full potential, ensuring that no one misses out on what's meant for them.\"",
+            testimonial2: "\"The goal of this project is to reimagine how people access government schemes and services—making the process not just user-friendly but also inspiring confidence in technology. This platform is more than just a tool; it's a step towards building a smarter, more inclusive society.\"",
+
+            // FAQ Section
+            faqTitle: "Frequently Asked Questions",
+            faq1Question: "What is YojnaConnect, and how does it work?",
+            faq1Answer: "YojnaConnect is an AI-powered platform that simplifies access to government schemes and services. It helps users discover schemes they are eligible for, provides personalized guidance, verifies necessary documents, and streamlines the application process. By creating a profile, you can receive customized recommendations tailored to your needs, making government benefits more accessible than ever.",
+            faq2Question: "Is YojnaConnect free to use?",
+            faq2Answer: "Yes, YojnaConnect is completely free to use! Our mission is to make government schemes and services easily accessible to everyone. Simply sign up, fill in your details, and start exploring the opportunities available to you.",
+            faq3Question: "How does YojnaConnect ensure the security of my data?",
+            faq3Answer: "We prioritize your privacy and data security. YojnaConnect uses robust encryption and secure servers to protect your information. We adhere to strict privacy policies and only use your data to match you with relevant schemes. Your personal information will never be shared without your consent.",
+            faq4Question: "Can YojnaConnect help me track my application status?",
+            faq4Answer: "Absolutely! YojnaConnect offers an application tracking feature that allows you to monitor the status of your submitted applications in real time. You'll also receive notifications and updates to ensure you don't miss any critical deadlines or communications.",
+
+            // Footer
+            footerCopyright: "© 2024 SmartPortal. Empowering Digital Innovation. All rights reserved."
+        },
+        hi: {
+            // Navbar translations
+            navHome: "होम",
+            navBlogs: "ब्लॉग्स",
+            navForum: "फोरम", 
+            navProfile: "प्रोफाइल",
+            navSignIn: "साइन इन",
+            navLanguage: "भाषा",
+
+            // Hero Section
+            heroTitle: "अवसरों तक पहुंच को सरल बनाना",
+            heroDescription: "सरकारी समर्थन के लिए आपका डिजिटल गाइड। योजनाओं को पहले से कहीं अधिक सरल बनाना।",
+            getStarted: "शुरू करें",
+            learnMore: "अधिक जानें",
+            learnMoreTitle: "क्या आप जानते हैं?",
+            learnMoreContent: "कई सरकारी योजनाएं जागरूकता और पहुंच की कमी के कारण अपने लक्षित समूहों को लाभ नहीं दे पातीं। हमारा प्लेटफॉर्म AI का उपयोग करके इस अंतर को पाटता है, जो उपयोगकर्ताओं को पात्र कार्यक्रमों से जोड़ता है, व्यक्तिगत मार्गदर्शन प्रदान करता है, और आवेदन प्रक्रिया को सरल बनाता है—यह सुनिश्चित करते हुए कि ये पहल वास्तव में उन लोगों तक पहुंचें जिनके लिए इन्हें डिज़ाइन किया गया है।",
+            learnMoreGoBack: "वापस जाएं",
+
+            // Features Section
+            featuresTitle: "हमारी अभिनव सुविधाएं",
+            featureAIBlogs: "AI-संचालित ब्लॉग्स",
+            featureAIBlogsDesc: "उन्नत AI एल्गोरिदम द्वारा संकलित अत्याधुनिक अंतर्दृष्टि और रुझान खोजें।",
+            featureForum: "सहयोगी फोरम",
+            featureForumDesc: "तकनीकी उत्साही के एक वैश्विक समुदाय के साथ जुड़ें, चर्चा करें और नवाचार करें।",
+            featureProfile: "स्मार्ट प्रोफाइलिंग",
+            featureProfileDesc: "बुद्धिमान डेटा प्रबंधन और सिफारिशों के साथ व्यक्तिगत अनुभव।",
+
+            // Testimonials Section
+            testimonialsTitle: "नवप्रवर्तक क्या कहते हैं",
+            testimonial1: "\"एक नवप्रवर्तक के रूप में, मैं मानता हूँ कि तकनीक को एक सक्षमकर्ता के रूप में कार्य करना चाहिए, जीवन को सरल बनाता हो और अंतराल को पाटता हो। AI और डेटा-संचालित समाधानों का लाभ उठाकर, हमका उद्देश्य व्यक्तियों को अपनी पूरी क्षमता को अनलॉक करने में सशक्त बनाना है, यह सुनिश्चित करते हुए कि कोई भी उस चीज़ से चूक न जाए जो उसके लिए निर्धारित है।\"",
+            testimonial2: "\"इस परियोजना का लक्ष्य यह पुनर्कल्पना करना है कि लोग सरकारी योजनाओं और सेवाओं तक कैसे पहुंचते हैं—न केवल उपयोगकर्ता के अनुकूल बल्कि तकनीक में विश्वास भी जगाते हुए। यह प्लेटफॉर्म बस एक टूल से अधिक है; यह एक बुद्धिमान और समावेशी समाज के निर्माण की दिशा में एक कदम है।\"",
+
+            // FAQ Section
+            faqTitle: "अक्सर पूछे जाने वाले प्रश्न",
+            faq1Question: "योजना कनेक्ट क्या है, और यह कैसे काम करता है?",
+            faq1Answer: "योजना कनेक्ट एक AI-संचालित प्लेटफॉर्म है जो सरकारी योजनाओं और सेवाओं तक पहुंच को सरल बनाता है। यह उपयोगकर्ताओं को उन योजनाओं की खोज करने में मदद करता है जिनके लिए वे पात्र हैं, व्यक्तिगत मार्गदर्शन प्रदान करता है, आवश्यक दस्तावेजों का सत्यापन करता है, और आवेदन प्रक्रिया को सुव्यवस्थित करता है। एक प्रोफाइल बनाकर, आप अपनी आवश्यकताओं के अनुकूल अनुकूलित सिफारिशें प्राप्त कर सकते हैं, जिससे सरकारी लाभ पहले से कहीं अधिक सुलभ हो जाते हैं।",
+            faq2Question: "क्या योजना कनेक्ट का उपयोग मुफ्त है?",
+            faq2Answer: "हाँ, योजना कनेक्ट का उपयोग पूरी तरह से मुफ्त है! हमारा मिशन सरकारी योजनाओं और सेवाओं को सभी के लिए आसानी से सुलभ बनाना है। बस साइन अप करें, अपने विवरण भरें, और उपलब्ध अवसरों की खोज शुरू करें।",
+            faq3Question: "योजना कनेक्ट मेरे डेटा की सुरक्षा कैसे सुनिश्चित करता है?",
+            faq3Answer: "हम आपकी गोपनीयता और डेटा सुरक्षा को प्राथमिकता देते हैं। योजना कनेक्ट अपनी जानकारी की रक्षा के लिए मजबूत एन्क्रिप्शन और सुरक्षित सर्वर का उपयोग करता है। हम कड़ी गोपनीयता नीतियों का पालन करते हैं और केवल आपके डेटा का उपयोग आपको संबंधित योजनाओं से जोड़ने के लिए करते हैं। आपकी व्यक्तिगत जानकारी कभी भी आपकी अनुमति के बिना साझा नहीं की जाएगी।",
+            faq4Question: "क्या योजना कनेक्ट मेरे आवेदन की स्थिति को ट्रैक करने में मदद कर सकता है?",
+            faq4Answer: "बिल्कुल! योजना कनेक्ट एक आवेदन ट्रैकिंग सुविधा प्रदान करता है जो आपको अपने जमा किए गए आवेदनों की स्थिति को रीयल-टाइम में मॉनिटर करने की अनुमति देता है। आपको महत्वपूर्ण समय-सीमा या संचार में कोई चूक न हो, इसके लिए आपको सूचनाएं और अपडेट भी मिलेंगे।",
+
+            // Footer
+            footerCopyright: "© 2024 स्मार्ट पोर्टल। डिजिटल नवाचार को सशक्त बनाना। सभी अधिकार सुरक्षित।"
+        },
+    };
+
+    function setLanguage(language) {
+        // Navbar
+        document.querySelector('a[href="index.html"]').textContent = translations[language].navHome;
+        document.querySelector('a[href="blogs.html"]').textContent = translations[language].navBlogs;
+        document.querySelector('a[href="forum.html"]').textContent = translations[language].navForum;
+        document.querySelector('a[href="profile.html"]').textContent = translations[language].navProfile;
+        document.querySelector('a[href="login.html"].btn-login').textContent = translations[language].navSignIn;
+        document.querySelector('#languageDropdown').textContent = translations[language].navLanguage;
+
+        // Hero Section
+        document.querySelector(".hero-content h1").textContent = translations[language].heroTitle;
+        document.querySelector(".hero-content p").textContent = translations[language].heroDescription;
+        document.querySelector(".btn-primary").textContent = translations[language].getStarted;
+        document.querySelector(".btn-secondary").textContent = translations[language].learnMore;
+
+
+        // Learn More Section
+        if (document.getElementById('hidden-content')) {
+            document.querySelector('#hidden-content h2').textContent = translations[language].learnMoreTitle;
+            document.querySelector('#hidden-content p').textContent = translations[language].learnMoreContent;
+            document.querySelector('#hidden-content button').textContent = translations[language].learnMoreGoBack;
+        }
+
+        // Features Section
+        document.querySelector('.features h2').textContent = translations[language].featuresTitle;
+        const featureCards = document.querySelectorAll('.feature-card');
+        featureCards[0].querySelector('h3').textContent = translations[language].featureAIBlogs;
+        featureCards[0].querySelector('p').textContent = translations[language].featureAIBlogsDesc;
+        featureCards[1].querySelector('h3').textContent = translations[language].featureForum;
+        featureCards[1].querySelector('p').textContent = translations[language].featureForumDesc;
+        featureCards[2].querySelector('h3').textContent = translations[language].featureProfile;
+        featureCards[2].querySelector('p').textContent = translations[language].featureProfileDesc;
+
+        // Testimonials Section
+        document.querySelector('.testimonials h2').textContent = translations[language].testimonialsTitle;
+        const testimonials = document.querySelectorAll('.testimonial p');
+        testimonials[0].textContent = translations[language].testimonial1;
+        testimonials[1].textContent = translations[language].testimonial2;
+
+        // FAQ Section
+        document.querySelector('.faq h2').textContent = translations[language].faqTitle;
+        const faqQuestions = document.querySelectorAll('.faq-question');
+        const faqAnswers = document.querySelectorAll('.faq-answer');
+        
+        faqQuestions[0].textContent = translations[language].faq1Question;
+        faqAnswers[0].textContent = translations[language].faq1Answer;
+        faqQuestions[1].textContent = translations[language].faq2Question;
+        faqAnswers[1].textContent = translations[language].faq2Answer;
+        faqQuestions[2].textContent = translations[language].faq3Question;
+        faqAnswers[2].textContent = translations[language].faq3Answer;
+        faqQuestions[3].textContent = translations[language].faq4Question;
+        faqAnswers[3].textContent = translations[language].faq4Answer;
+
+        // Footer
+        document.querySelector('footer p').textContent = translations[language].footerCopyright;
+    }
+    
+
+
+    // Toggle the "Learn More" text
+    function toggleLearnMore() {
+        const heroContent = document.getElementById('hero-content');
+        const hiddenContent = document.getElementById('hidden-content');
+
+        if (hiddenContent.style.display === "none" || hiddenContent.style.display === "") {
+            // Show hidden content
+            hiddenContent.style.display = "block";
+            heroContent.style.opacity = "0"; // Fade out main content
+        } else {
+            // Hide hidden content and restore main hero content
+            hiddenContent.style.display = "none";
+            heroContent.style.opacity = "1"; // Fade in main content
+        }
+    }
+
+
+    document.addEventListener('DOMContentLoaded', () => {
+    const faqItems = document.querySelectorAll('.faq-item');
+
+    faqItems.forEach(item => {
+        const question = item.querySelector('.faq-question');
+        
+        question.addEventListener('click', (event) => {
+            // Prevent any default behavior
+            event.preventDefault();
+            
+            // If this item is already active, close it
+            if (item.classList.contains('active')) {
+                item.classList.remove('active');
+                return;
+            }
+
+            // Close all other FAQ items
+            faqItems.forEach(otherItem => {
+                otherItem.classList.remove('active');
+            });
+
+            // Open the clicked item
+            item.classList.add('active');
+        });
+    });
+});
+</script>

@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Professional Profile - SmartPortal</title>
+    <style>
+        :root {
+            --primary-color: #6A5ACD;
+            --secondary-color: #5A4ACD;
+            --bg-light: #f0f2f5;
+            --card-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+        body {
+            font-family: 'Inter', Arial, sans-serif;
+            background-color: var(--bg-light);
+            margin: 0;
+            line-height: 1.6;
+        }
+        .profile-container {
+            max-width: 900px;
+            margin: 40px auto;
+            background-color: white;
+            border-radius: 12px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            padding: 40px;
+            perspective: 1000px;
+        }
+        .profile-header {
+            display: flex;
+            align-items: center;
+            border-bottom: 2px solid #e9ecef;
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+            transform: translateZ(20px);
+        }
+        .profile-image {
+            width: 180px;
+            height: 180px;
+            border-radius: 12px;
+            object-fit: cover;
+            margin-right: 30px;
+            border: 3px solid var(--primary-color);
+            cursor: pointer;
+            transition: transform 0.3s ease;
+            box-shadow: var(--card-shadow);
+        }
+        .profile-image:hover {
+            transform: scale(1.05) rotateY(10deg);
+        }
+        .profile-info {
+            flex-grow: 1;
+        }
+        .profile-title {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .edit-profile-btn {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .edit-profile-btn:hover {
+            background-color: var(--secondary-color);
+        }
+        .profile-grid, .schemes-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+        .profile-field, .scheme-item {
+            background-color: white;
+            border-radius: 12px;
+            padding: 15px;
+            box-shadow: var(--card-shadow);
+            transition: transform 0.3s ease;
+            border: 1px solid #f1f3f5;
+        }
+        .profile-field:hover, .scheme-item:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+        }
+        .profile-field label {
+            color: var(--primary-color);
+            font-weight: 600;
+            display: block;
+            margin-bottom: 8px;
+        }
+        .profile-field input {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ced4da;
+            border-radius: 6px;
+            background-color: transparent;
+        }
+        .schemes-section {
+            margin-top: 30px;
+            background-color: #f8f9fa;
+            border-radius: 12px;
+            padding: 20px;
+        }
+        .scheme-item {
+            display: flex;
+            flex-direction: column;
+        }
+        .scheme-item h4 {
+            color: var(--primary-color);
+            margin-bottom: 10px;
+            border-bottom: 2px solid #e9ecef;
+            padding-bottom: 5px;
+        }
+        .scheme-details {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        .scheme-icon {
+            width: 40px;
+            height: 40px;
+            background-color: var(--primary-color);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            color: white;
+            font-weight: bold;
+        }
+        .scheme-link {
+            color: var(--secondary-color);
+            text-decoration: none;
+            font-weight: 600;
+            margin-top: 10px;
+            transition: color 0.3s ease;
+        }
+        .scheme-link:hover {
+            color: var(--primary-color);
+            text-decoration: underline;
+        }
+        .document-section {
+            margin-top: 30px;
+            background-color: #f8f9fa;
+            border-radius: 12px;
+            padding: 20px;
+        }
+        .document-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+        }
+        .verification-btn {
+            background-color: #28a745;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            margin-top: 15px;
+            transition: background-color 0.3s;
+        }
+        .verification-btn:hover {
+            background-color: #218838;
+        }
+        #image-upload-input {
+            display: none;
+        }
+        .translate-widget {
+            position: absolute;
+            top: 10px;
+            right: 20px;
+            z-index: 1000;
+        }
+    </style>
+    
+</head>
+<body>
+    
+    <div class="profile-container">
+        <!-- Translate Option -->
+        <div class="translate-widget">
+            <div id="google_translate_element"></div>
+        </div>
+        <div class="profile-header">
+            <img src="/api/placeholder/180/180" alt="Profile" class="profile-image" id="profile-image">
+            <div class="profile-info">
+                <div class="profile-title">
+                    <h1>John Doe</h1>
+                    <button class="edit-profile-btn" id="edit-all-btn">Edit Profile</button>
+                </div>
+                <p>Professional Dashboard & Information Management</p>
+            </div>
+        </div>
+
+        <div class="profile-grid" id="profile-fields">
+            <!-- Profile Fields -->
+            <div class="profile-field">
+                <label>Aadhar Number</label>
+                <input type="text" value="XXXX XXXX XXXX" readonly>
+            </div>
+            <div class="profile-field">
+                <label>Contact Number</label>
+                <input type="tel" value="+91 9876543210" readonly>
+            </div>
+            <div class="profile-field">
+                <label>Email Address</label>
+                <input type="email" value="johndoe@example.com" readonly>
+            </div>
+            <div class="profile-field">
+                <label>Permanent Address</label>
+                <input type="text" value="123 Smart Street, Tech City" readonly>
+            </div>
+            <div class="profile-field">
+                <label>Age</label>
+                <input type="number" value="35" readonly>
+            </div>
+            <div class="profile-field">
+                <label>Educational Qualification</label>
+                <input type="text" value="Master's in Computer Science" readonly>
+            </div>
+            <div class="profile-field">
+                <label>Annual Income</label>
+                <input type="number" value="750000" readonly>
+            </div>
+        </div>
+
+        <div class="schemes-section">
+            <h3>Government Schemes</h3>
+            <div class="schemes-grid">
+                <div class="scheme-item">
+                    <h4>Availed Schemes</h4>
+                    <div class="scheme-details">
+                        <div class="scheme-icon">PM</div>
+                        <div>
+                            <strong>Pradhan Mantri Awas Yojana</strong>
+                            <p>Housing assistance for urban and rural populations</p>
+                            <a href="#" class="scheme-link">View Details</a>
+                        </div>
+                    </div>
+                    <div class="scheme-details">
+                        <div class="scheme-icon">EP</div>
+                        <div>
+                            <strong>Employees' Provident Fund</strong>
+                            <p>Retirement benefits for salaried employees</p>
+                            <a href="#" class="scheme-link">View Details</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="scheme-item">
+                    <h4>Eligible Schemes</h4>
+                    <div class="scheme-details">
+                        <div class="scheme-icon">JD</div>
+                        <div>
+                            <strong>Jan Dhan Yojana</strong>
+                            <p>Financial inclusion and access to banking</p>
+                            <a href="#" class="scheme-link">Apply Now</a>
+                        </div>
+                    </div>
+                    <div class="scheme-details">
+                        <div class="scheme-icon">JY</div>
+                        <div>
+                            <strong>Jeevan Jyoti Bima Yojana</strong>
+                            <p>Life insurance coverage at low premium</p>
+                            <a href="#" class="scheme-link">Apply Now</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="document-section">
+            <h3>Document Verification</h3>
+            <div class="document-grid">
+                <div>
+                    <label>Aadhar Card</label>
+                    <input type="file" accept=".pdf,.jpg,.png">
+                </div>
+                <div>
+                    <label>PAN Card</label>
+                    <input type="file" accept=".pdf,.jpg,.png">
+                </div>
+                <div>
+                    <label>Education Certificate</label>
+                    <input type="file" accept=".pdf,.jpg,.png">
+                </div>
+            </div>
+            <button class="verification-btn" id="verify-btn">Request Verification</button>
+        </div>
+    </div>
+
+    <input type="file" id="image-upload-input" accept="image/*">
+
+    <script>
+        function loadGoogleTranslate() {
+            const translateScript = document.createElement("script");
+            translateScript.src = "//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit";
+            document.body.appendChild(translateScript);
+        }
+
+        function googleTranslateElementInit() {
+            new google.translate.TranslateElement({ 
+                pageLanguage: 'en', 
+                includedLanguages: 'en,hi', 
+                layout: google.translate.TranslateElement.InlineLayout.SIMPLE 
+            }, 'google_translate_element');
+        }
+
+        loadGoogleTranslate();
+
+        const editAllBtn = document.getElementById('edit-all-btn');
+        const verifyBtn = document.getElementById('verify-btn');
+        const profileFields = document.getElementById('profile-fields');
+        const profileImage = document.getElementById('profile-image');
+        const imageUploadInput = document.getElementById('image-upload-input');
+
+        profileImage.addEventListener('click', () => {
+            imageUploadInput.click();
+        });
+
+        imageUploadInput.addEventListener('change', () => {
+            const file = imageUploadInput.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = () => {
+                    profileImage.src = reader.result;
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+
+        editAllBtn.addEventListener('click', () => {
+            const inputs = profileFields.querySelectorAll('input');
+            inputs.forEach(input => input.removeAttribute('readonly'));
+            editAllBtn.textContent = "Save Profile";
+        });
+
+        verifyBtn.addEventListener('click', () => {
+            alert('Document Verification Requested');
+        });
+    </script>
+</body>
+</html>

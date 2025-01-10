@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YojnaConnect Community Forum</title>
+    <style>
+        /* Reset and Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            line-height: 1.6;
+            background-color: linear-gradient(to bottom right, #e0f7fa, #f1f8e9);
+            color: #333;
+        }
+
+        /* Container */
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Navbar */
+        .navbar {
+            background-color: #3B82F6;
+            color: white;
+            padding: 1rem;
+            display: flex;
+            position: sticky;
+            justify-content: space-between;
+            top: 0;
+            z-index: 1000;
+            align-items: center;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+    
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--primary-color);
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 10px; /* Adjust this for the spacing between logo and brand */
+        }
+
+        .logo img {
+            height: 70px; /* Increased logo size */
+            transition: transform 0.3s ease;
+        }
+
+        .logo img:hover {
+            transform: scale(1.1) rotate(4deg);
+        }
+
+        .navbar-brand {
+            font-size: 1.8rem;
+            font-weight: 600;
+            text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.2);
+            color: var(--primary-color);
+        }
+        .nav-links {
+            display: flex;
+            gap: 1.5rem;
+        }
+        .nav-links a {
+            text-decoration: none;
+            color: inherit;
+            font-size: 1rem;
+        }
+        .nav-links a:hover {
+            color: #FFD700;
+        }
+        .btn-login {
+            background-color: #FF69B4;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            color: white;
+            cursor: pointer;
+        }
+        .btn-login:hover {
+            background-color: #FF1493;
+        }
+
+        /* Forum Layout */
+        .forum-container {
+            display: grid;
+            grid-template-columns: 1fr 3fr;
+            gap: 20px;
+            margin: 20px 0;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            background-color: white;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        .sidebar h3 {
+            margin-bottom: 10px;
+            color: #3b82f6;
+        }
+
+        .sidebar-categories a {
+            display: block;
+            color: #3B82F6;
+            text-decoration: none;
+            padding: 10px 0;
+            border-bottom: 1px solid #f1f1f1;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        .sidebar-categories a:hover {
+            background-color: #e3f2fd;
+            color: #0d47a1;
+        }
+
+        /* Main Content */
+        .main-content {
+            background-color: white;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .create-post-btn {
+            background-color: #34D399;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 8px;
+            cursor: pointer;
+            margin-bottom: 20px;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+
+        .create-post-btn:hover {
+            background: #059669;
+            transform: scale(1.05);
+        }
+
+        /* Post Styles */
+        .post {
+            background-color: #ffffff;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            transition: transform 0.2s ease;
+            border-bottom: 1px solid #f1f1f1;
+            padding: 15px 0;
+        }
+
+        .post:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .post-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .post-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            margin-right: 15px;
+            background-color: #3B82F6;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+        }
+
+        .post-actions {
+            display: flex;
+            align-items: center;
+            margin-top: 15px;
+            gap: 10px;
+        }
+
+        .vote-btn {
+            background-color: #10B981;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 3px;
+            margin-right: 10px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .vote-btn:hover {
+            background-color: #059669;
+        }
+
+        .report-btn {
+            background-color: #FF4444;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 3px;
+            margin-right: 10px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .report-btn:hover {
+            background-color: #CC0000;
+        }
+
+        .vote-count, .report-count {
+            margin-right: 10px;
+        }
+
+        /* Filter Container */
+        .filter-container {
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .filter-container select {
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.4);
+        }
+
+        .modal-content {
+            background-color: #fefefe;
+            margin: 15% auto;
+            padding: 20px;
+            border-radius: 8px;
+            width: 80%;
+            max-width: 500px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #f1f1f1;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+
+        .close-btn {
+            color: #aaa;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .close-btn:hover {
+            color: #333;
+        }
+
+        .modal-form input,
+        .modal-form textarea,
+        .modal-form select {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+
+        .modal-submit-btn {
+            background-color: #3B82F6;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .modal-submit-btn:hover {
+            background-color: #2563EB;
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="logo-container">
+            <div class="logo">
+                <img src="https://www.dropbox.com/scl/fi/x1p2ye61y9n2oxgxpvptj/WhatsApp-Image-2024-11-20-at-20.22.00.jpeg?rlkey=h316h9vdvbfea64y3lywxetcy&st=78qy4pck&raw=1" alt="Logo">
+            </div>
+            <div class="navbar-brand">Yojna Connect</div>
+        </div>
+        <div >
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="blogs.html">Blogs</a></li>
+                <li><a href="profile.html">Profile</a></li>
+                <li><a href="login.html" class="btn-login">Sign In</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Main Container -->
+    <div class="container">
+        <div class="forum-container">
+            <!-- Sidebar -->
+            <div class="sidebar">
+                <h3>Forum Categories</h3>
+                <div class="sidebar-categories">
+                    <a href="#">💻  Technology</a>
+                    <a href="#">🔬  Science</a>
+                    <a href="#">📚  Education</a>
+                    <a href="#">💬  General Discussion</a>
+                </div>
+            </div>
+
+            <!-- Main Content -->
+            <div class="main-content">
+                <button id="createPostBtn" class="create-post-btn">Create New Post</button>
+                <div class="filter-container">
+                    <label for="categoryFilter">Filter by Category:</label>
+                    <select id="categoryFilter">
+                        <option value="All">All</option>
+                        <option value="Technology">Technology</option>
+                        <option value="Science">Science</option>
+                        <option value="Education">Education</option>
+                        <option value="General">General Discussion</option>
+                    </select>
+                </div>
+                
+                <!-- Posts Container -->
+                <div id="postsContainer"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Create Post Modal -->
+    <div id="createPostModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Create New Post</h2>
+                <span class="close-btn" id="closeModalBtn">&times;</span>
+            </div>
+            <form id="createPostForm" class="modal-form">
+                <input 
+                    type="text" 
+                    id="postTitle" 
+                    placeholder="Post Title" 
+                    required
+                >
+                <select id="postCategory" required>
+                    <option value="">Select Category</option>
+                    <option value="Technology">Technology</option>
+                    <option value="Science">Science</option>
+                    <option value="Education">Education</option>
+                    <option value="General">General Discussion</option>
+                </select>
+                <textarea 
+                    id="postContent" 
+                    placeholder="Write your post content here..." 
+                    rows="4" 
+                    required
+                ></textarea>
+                <button type="submit" class="modal-submit-btn">Post</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // Posts Data Structure
+        let posts = [
+            {
+                id: 1,
+                author: 'Jane Doe',
+                title: 'Emerging Technologies',
+                content: 'What are your thoughts on quantum computing?',
+                category: 'Technology',
+                votes: 0,
+                reports: 0
+            },
+            {
+                id: 2,
+                author: 'John Smith',
+                title: 'Education in 2030',
+                content: 'How will AI impact learning?',
+                category: 'Education',
+                votes: 0,
+                reports: 0
+            }
+        ];
+
+        const postsContainer = document.getElementById('postsContainer');
+        const createPostBtn = document.getElementById('createPostBtn');
+        const createPostModal = document.getElementById('createPostModal');
+        const closeModalBtn = document.getElementById('closeModalBtn');
+        const createPostForm = document.getElementById('createPostForm');
+        const categoryFilter = document.getElementById('categoryFilter');
+
+        // Helper: Render Posts
+        function renderPosts(filter = 'All') {
+            postsContainer.innerHTML = '';
+            const filteredPosts = filter === 'All' ? posts : posts.filter(post => post.category === filter);
+            
+            filteredPosts.forEach(post => {
+                // Skip posts that have been reported more than 3 times
+                if (post.reports >= 3) return;
+
+                const postEl = document.createElement('div');
+                postEl.className = 'post';
+                postEl.innerHTML = `
+                    <div class="post-header">
+                        <div class="post-avatar">${post.author[0]}</div>
+                        <div>
+                            <h4>${post.title}</h4>
+                            <small>${post.category}</small>
+                        </div>
+                    </div>
+                    <p>${post.content}</p>
+                    <div class="post-actions">
+                        <button class="vote-btn" onclick="votePost(${post.id}, 1)">Upvote</button>
+                        <button class="vote-btn" onclick="votePost(${post.id}, -1)">Downvote</button>
+                        <button class="report-btn" onclick="reportPost(${post.id})">Report</button>
+                        <span class="vote-count">Votes: ${post.votes}</span>
+                        <span class="report-count">Reports: ${post.reports}</span>
+                    </div>
+                `;
+                postsContainer.appendChild(postEl);
+            });
+        }
+
+        // Vote Post
+        function votePost(postId, vote) {
+            const post = posts.find(p => p.id === postId);
+            if (post) {
+                post.votes += vote;
+                renderPosts(categoryFilter.value);
+            }
+        }
+
+        // Report Post
+        function reportPost(postId) {
+            const post = posts.find(p => p.id === postId);
+            if (post) {
+                post.reports += 1;
+                renderPosts(categoryFilter.value);
+                
+                // Alert if post receives multiple reports
+                if (post.reports >= 3) {
+                    alert('Post has received multiple reports and will be hidden from view.');
+                }
+            }
+        }
+
+        // Event: Show Modal
+        createPostBtn.addEventListener('click', () => {
+            createPostModal.style.display = 'block';
+        });
+
+        // Event: Close Modal
+        closeModalBtn.addEventListener('click', () => {
+            createPostModal.style.display = 'none';
+        });
+
+        // Event: Create New Post
+        createPostForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const title = document.getElementById('postTitle').value;
+            const category = document.getElementById('postCategory').value;
+            const content = document.getElementById('postContent').value;
+
+            posts.push({
+                id: posts.length + 1,
+                author: 'New User',
+                title,
+                content,
+                category,
+                votes: 0,
+                reports: 0
+            });
+
+            renderPosts(categoryFilter.value);
+            createPostModal.style.display = 'none';
+            createPostForm.reset();
+        });
+
+        // Event: Filter Posts
+        categoryFilter.addEventListener('change', () => {
+            renderPosts(categoryFilter.value);
+        });
+
+        // Initial Render
+        renderPosts();
+    </script>
+</body>
+</html>

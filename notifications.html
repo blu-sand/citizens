@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notifications - SmartPortal</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f5f7fa;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .notifications-container {
+            width: 100%;
+            max-width: 650px;
+            background-color: #ffffff;
+            border-radius: 20px;
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+            margin-top: 20px;
+        }
+
+        .notification-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #e4e8f1;
+            padding-bottom: 15px;
+        }
+
+        .notification-header h1 {
+            margin: 0;
+            color: #4B3F72;
+            font-size: 28px;
+            font-weight: 600;
+        }
+
+        .notification-item {
+            background-color: #f9f9fb;
+            border-radius: 12px;
+            padding: 18px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        .notification-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .notification-icon {
+            width: 50px;
+            height: 50px;
+            background-color: #4B3F72;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-right: 20px;
+            color: white;
+            font-size: 24px;
+            transition: background-color 0.3s ease;
+        }
+
+        .notification-icon:hover {
+            background-color: #6D4C9F;
+        }
+
+        .notification-content {
+            flex-grow: 1;
+        }
+
+        .notification-content h3 {
+            margin: 0 0 6px 0;
+            color: #333;
+            font-size: 17px;
+            font-weight: 500;
+        }
+
+        .notification-content p {
+            margin: 0;
+            color: #6B6B6B;
+            font-size: 15px;
+        }
+
+        .notification-time {
+            color: #A2A2A2;
+            font-size: 13px;
+            margin-left: 15px;
+            white-space: nowrap;
+        }
+
+        .translate-widget {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+        }
+    </style>
+</head>
+<body>
+    <div class="translate-widget">
+        <div id="google_translate_element"></div>
+    </div>
+
+    <div class="notifications-container">
+        <div class="notification-header">
+            <h1>Notifications</h1>
+        </div>
+        
+        <div class="notification-item">
+            <div class="notification-icon">✓</div>
+            <div class="notification-content">
+                <h3>Profile Created Successfully</h3>
+                <p>Your SmartPortal profile has been set up.</p>
+            </div>
+            <div class="notification-time">Just Now</div>
+        </div>
+        
+        <div class="notification-item">
+            <div class="notification-icon">🔔</div>
+            <div class="notification-content">
+                <h3>Application Status</h3>
+                <p>Your application is currently under review.</p>
+            </div>
+            <div class="notification-time">2 hours ago</div>
+        </div>
+        
+        <div class="notification-item">
+            <div class="notification-icon">📝</div>
+            <div class="notification-content">
+                <h3>New Blog Post</h3>
+                <p>A new policy blog has been published.</p>
+            </div>
+            <div class="notification-time">Yesterday</div>
+        </div>
+        
+        <div class="notification-item">
+            <div class="notification-icon">🌟</div>
+            <div class="notification-content">
+                <h3>Account Upgrade</h3>
+                <p>You're eligible for a premium account.</p>
+            </div>
+            <div class="notification-time">3 days ago</div>
+        </div>
+    </div>
+
+    <script>
+        function loadGoogleTranslate() {
+            const translateScript = document.createElement("script");
+            translateScript.src = "//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit";
+            document.body.appendChild(translateScript);
+        }
+
+        function googleTranslateElementInit() {
+            new google.translate.TranslateElement({ 
+                pageLanguage: 'en', 
+                includedLanguages: 'en,hi', 
+                layout: google.translate.TranslateElement.InlineLayout.SIMPLE 
+            }, 'google_translate_element');
+        }
+
+        loadGoogleTranslate();
+    </script>
+</body>
+</html>

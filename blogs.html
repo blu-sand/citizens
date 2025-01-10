@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blogs - SmartPortal</title>
+    <style>
+        /* General Styles */
+        body {
+            margin: 0;
+            font-family: 'Arial', sans-serif;
+            background: #f4f4f9;
+            color: #333;
+            scroll-behavior: smooth;
+        }
+
+        /* Navbar */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+            background: linear-gradient(to right, #4B79A1, #283E51);
+            color: white;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--primary-color);
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 10px; /* Adjust this for the spacing between logo and brand */
+        }
+
+        .logo img {
+            height: 70px; /* Increased logo size */
+            transition: transform 0.3s ease;
+        }
+
+        .logo img:hover {
+            transform: scale(1.1) rotate(4deg);
+        }
+
+        .navbar-brand {
+            font-size: 1.8rem;
+            font-weight: 600;
+            text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.2);
+            color: var(--primary-color);
+        
+        }
+        .nav-links {
+            display: flex;
+            gap: 1.5rem;
+        }
+        .nav-links a {
+            text-decoration: none;
+            color: inherit;
+            font-size: 1rem;
+        }
+        .nav-links a:hover {
+            color: #FFD700;
+        }
+        .btn-login {
+            background-color: #FF69B4;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            color: white;
+            cursor: pointer;
+        }
+        .btn-login:hover {
+            background-color: #FF1493;
+        }
+
+        /* Blogs Section */
+        .blogs-section {
+            padding: 2rem;
+        }
+        .blogs-section h1 {
+            text-align: center;
+            font-size: 2.5rem;
+            color: #283E51;
+            margin-bottom: 2rem;
+        }
+        .blog-grid {
+            display: grid;
+            grid-template-columns: repeat(6, 1fr); /* 6 columns for uneven layout */
+            gap: 1rem;
+        }
+        .blog-card {
+            position: relative;
+            border-radius: 10px;
+            overflow: hidden;
+            transition: transform 0.3s ease-in-out;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .blog-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease-in-out;
+        }
+        .blog-card:hover img {
+            transform: scale(1.1); /* Slight zoom on hover */
+        }
+        .blog-info {
+            position: absolute;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.6);
+            color: white;
+            padding: 1rem;
+            width: 100%;
+            text-align: center;
+            box-sizing: border-box;
+        }
+        .blog-info h2 {
+            font-size: 1.2rem;
+            margin: 0;
+        }
+        .blog-info p {
+            margin: 0.5rem 0 0;
+            font-size: 0.9rem;
+        }
+
+        /* Grid Layout */
+        .blog-card:nth-child(1) {
+            grid-column: span 4; /* Larger card */
+            grid-row: span 2;
+            height: 400px;
+        }
+        .blog-card:nth-child(2) {
+            grid-column: span 2; /* Smaller card */
+            grid-row: span 1;
+            height: 200px;
+        }
+        .blog-card:nth-child(3) {
+            grid-column: span 3;
+            grid-row: span 2;
+            height: 400px;
+        }
+        .blog-card:nth-child(4) {
+            grid-column: span 3;
+            grid-row: span 1;
+            height: 200px;
+        }
+        .blog-card:nth-child(5) {
+            grid-column: span 2;
+            grid-row: span 2;
+            height: 400px;
+        }
+        .blog-card:nth-child(6) {
+            grid-column: span 4;
+            grid-row: span 1;
+            height: 200px;
+        }
+
+        /* Footer */
+        footer {
+            background: #283E51;
+            color: white;
+            text-align: center;
+            padding: 1rem;
+            margin-top: 2rem;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .blog-grid {
+                grid-template-columns: repeat(2, 1fr); /* 2 columns for smaller screens */
+            }
+            .blog-card {
+                grid-column: span 2; /* All cards take full width */
+                grid-row: auto;
+                height: auto; /* Adjust height dynamically */
+            }
+        }
+
+    </style>
+</head>
+<body>
+    
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="logo-container">
+            <div class="logo">
+                <img src="https://www.dropbox.com/scl/fi/x1p2ye61y9n2oxgxpvptj/WhatsApp-Image-2024-11-20-at-20.22.00.jpeg?rlkey=h316h9vdvbfea64y3lywxetcy&st=78qy4pck&raw=1" alt="Logo">
+            </div>
+            <div class="navbar-brand">Yojna Connect</div>
+        </div>
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="forum.html">Forum</a></li>
+            <li><a href="profile.html">Profile</a></li>
+            <li><a href="login.html" class="btn-login">Sign In</a></li>
+        </ul>
+        
+    </nav>
+    
+    <!-- Blogs Section -->
+    <section class="blogs-section">
+        <h1>AI-Powered Insights on Government Schemes</h1>
+        <div class="blog-grid">
+            <!-- Blog Card 1 -->
+            <div class="blog-card">
+                <img src="https://www.dropbox.com/scl/fi/m3uh36ynwoa6sufhnbrrf/shakib-uzzaman-gw5PIniKppY-unsplash.jpg?rlkey=tz5xsw59a9w1o4z2whroyx7fx&st=3zma83n3&raw=1" alt="Blog 1">
+                <div class="blog-info">
+                    <h2>Revolutionizing Agriculture Schemes</h2>
+                    <p>By AI Research Team</p>
+                </div>
+            </div>
+            <!-- Blog Card 2 -->
+            <div class="blog-card">
+                <img src="https://www.dropbox.com/scl/fi/5swur9udrckfw2ftfmk7j/Screen-Shot-2024-11-22-at-6.15.47-PM.png?rlkey=wpot3ijhj8iqv2wvaamb9hjun&st=x1rbhsxo&raw=1" alt="Blog 2">
+                <div class="blog-info">
+                    <h2>Women-Centric Programs</h2>
+                    <p>Focusing AI's edge in analyzing success metrics</p>
+                </div>
+            </div>
+            <!-- Blog Card 3 -->
+            <div class="blog-card">
+                <img src="https://www.dropbox.com/scl/fi/r53u5a3hm72hpjblfcf2q/arbendra-pratap-qi8O5PgpZbg-unsplash.jpg?rlkey=efjd7ttp8z59pqok4a5g8ftqp&st=lc99onei&raw=1" alt="Blog 3">
+                <div class="blog-info">
+                    <h2>Education for All: Targeted Scholarships</h2>
+                    <p>By Dr. Priya Verma</p>
+                </div>
+            </div>
+            <!-- Blog Card 4 -->
+            <div class="blog-card">
+                <img src="https://www.dropbox.com/scl/fi/em0jqlv8hu5u0o630jtfv/abhas-mishra-BD3qGeorAFY-unsplash.jpg?rlkey=px3vr369v1ssx3x1933hqzjyy&st=3mkw2wf2&raw=1" alt="Blog 4">
+                <div class="blog-info">
+                    <h2>Rural Development: AI Identifies High-Impact Areas</h2>
+                    <p>By Smart Data Analytics</p>
+                </div>
+            </div>
+            <!-- Blog Card 5 -->
+            <div class="blog-card">
+                <img src="https://www.dropbox.com/scl/fi/0gfx3fnjavnnzpyajddln/towfiqu-barbhuiya-Yw9Vgr6i_-0-unsplash.jpg?rlkey=rpu2opkak8csb35rerlld7jfo&st=84dgg3pf&raw=1" alt="Blog 5">
+                <div class="blog-info">
+                    <h2>Healthcare Accessibility</h2>
+                    <p>Using AI to map underserved regions</p>
+                </div>
+            </div>
+            <!-- Blog Card 6 -->
+            <div class="blog-card">
+                <img src="https://www.dropbox.com/scl/fi/zc18q0zz17lusw64xgmiy/biel-morro-HCha-UHkIg8-unsplash.jpg?rlkey=nje03j3yv9ybmw6c45n6crojv&st=qowe895l&raw=1" alt="Blog 6">
+                <div class="blog-info">
+                    <h2>Energy Efficiency Grants</h2>
+                    <p>AI predicts impact on carbon footprints</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2024 SmartPortal. Empowering Digital Innovation.</p>
+    </footer>
+</body>
+</html>

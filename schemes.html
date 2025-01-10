@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SmartPortal - Schemes</title>
+    <style>
+        /* Reset and Base Styles */
+        :root {
+            --primary-color: #3B82F6;
+            --secondary-color: #10B981;
+            --background-color: #F3F4F6;
+            --text-color: #1F2937;
+            --white: #FFFFFF;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--background-color);
+        }
+
+        /* Schemes Section */
+        .schemes-section {
+            padding: 4rem 5%;
+            text-align: center;
+            background-color: var(--background-color);
+        }
+
+        .schemes-section h2 {
+            margin-bottom: 2rem;
+            color: var(--primary-color);
+        }
+
+        .scheme-cards {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 2rem;
+        }
+
+        .scheme-card {
+            position: relative;
+            background-color: var(--white);
+            padding: 2rem;
+            width: 30%;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            perspective: 1000px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .scheme-card:hover {
+            transform: translateY(-10px) rotateY(5deg);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        .scheme-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 10px;
+            margin-bottom: 1.5rem;
+        }
+
+        .scheme-card h3 {
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+            font-size: 1.6rem;
+        }
+
+        .scheme-card p {
+            color: var(--text-color);
+            margin-bottom: 1.5rem;
+            font-size: 1.1rem;
+            line-height: 1.5;
+        }
+
+        .scheme-buttons {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .scheme-button {
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            border: 2px solid var(--primary-color);
+            color: var(--primary-color);
+            background-color: transparent;
+            transition: all 0.3s ease;
+        }
+
+        .scheme-button.apply {
+            background-color: var(--primary-color);
+            color: var(--white);
+        }
+
+        .scheme-button:hover {
+            background-color: var(--primary-color);
+            color: var(--white);
+            transform: translateY(-5px);
+        }
+
+        .scheme-button.apply:hover {
+            background-color: #2563EB;
+            transform: translateY(-5px);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .scheme-card {
+                width: 45%;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .scheme-card {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Schemes Section -->
+    <section class="schemes-section">
+        <h2>Explore Our Schemes</h2>
+        <div class="scheme-cards">
+            <!-- Scheme Card 1 -->
+            <div class="scheme-card">
+                <img src="img1.jpg" alt="Scheme 1" class="scheme-image">
+                <h3>Scheme 1: Digital Empowerment</h3>
+                <p>Empowering youth with digital literacy programs and access to technology resources.</p>
+                <div class="scheme-buttons">
+                    <button class="scheme-button apply">Apply Now</button>
+                    <button class="scheme-button">More Info</button>
+                </div>
+            </div>
+
+            <!-- Scheme Card 2 -->
+            <div class="scheme-card">
+                <img src="img1.jpg" alt="Scheme 2" class="scheme-image">
+                <h3>Scheme 2: Innovation Grants</h3>
+                <p>Supporting innovators and entrepreneurs with funding to bring their ideas to life.</p>
+                <div class="scheme-buttons">
+                    <button class="scheme-button apply">Apply Now</button>
+                    <button class="scheme-button">More Info</button>
+                </div>
+            </div>
+
+            <!-- Scheme Card 3 -->
+            <div class="scheme-card">
+                <img src="img1.jpg" alt="Scheme 3" class="scheme-image">
+                <h3>Scheme 3: Community Outreach</h3>
+                <p>Promoting social change through volunteer work and community-based projects.</p>
+                <div class="scheme-buttons">
+                    <button class="scheme-button apply">Apply Now</button>
+                    <button class="scheme-button">More Info</button>
+                </div>
+            </div>
+
+            <!-- Scheme Card 4 -->
+            <div class="scheme-card">
+                <img src="img1.jpg" alt="Scheme 4" class="scheme-image">
+                <h3>Scheme 4: Skill Development</h3>
+                <p>Offering courses and training to help individuals enhance their professional skills.</p>
+                <div class="scheme-buttons">
+                    <button class="scheme-button apply">Apply Now</button>
+                    <button class="scheme-button">More Info</button>
+                </div>
+            </div>
+
+            <!-- Scheme Card 5 -->
+            <div class="scheme-card">
+                <img src="img1.jpg" alt="Scheme 5" class="scheme-image">
+                <h3>Scheme 5: Green Innovations</h3>
+                <p>Supporting eco-friendly innovations and sustainable projects for a greener future.</p>
+                <div class="scheme-buttons">
+                    <button class="scheme-button apply">Apply Now</button>
+                    <button class="scheme-button">More Info</button>
+                </div>
+            </div>
+
+            <div class="scheme-card">
+                <img src="img1.jpg" alt="Scheme 5" class="scheme-image">
+                <h3>Scheme 5: Green Innovations</h3>
+                <p>Supporting eco-friendly innovations and sustainable projects for a greener future.</p>
+                <div class="scheme-buttons">
+                    <button class="scheme-button apply">Apply Now</button>
+                    <button class="scheme-button">More Info</button>
+                </div>
+            </div>
+            
+        </div>
+    </section>
+
+</body>
+</html>
